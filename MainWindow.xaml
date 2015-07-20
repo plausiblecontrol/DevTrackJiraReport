@@ -1,0 +1,138 @@
+﻿<Window x:Class="WRPriorityReport.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="SYE WR Priority Report" Height="380" Width="570" ResizeMode="NoResize" Icon="exclamation.ico">
+    <Grid Margin="0,0,4,2">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="41*"/>
+            <ColumnDefinition Width="9*"/>
+            <ColumnDefinition Width="20*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.Background>
+            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                <GradientStop Color="White" Offset="0.022"/>
+                <GradientStop Color="White" Offset="0.853"/>
+                <GradientStop Color="#FFDCF7FF" Offset="0.986"/>
+                <GradientStop Color="#FFD0F4FF"/>
+            </LinearGradientBrush>
+        </Grid.Background>
+
+        <Button x:Name="createBtn" Content="Create" HorizontalAlignment="Left" Height="34" Margin="4,167,0,0" VerticalAlignment="Top" Width="75" Click="createBtn_Click" FontSize="16" Grid.Column="2" IsDefault="True">
+            <Button.Background>
+                <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
+                    <GradientStop Color="#FFF3F3F3" Offset="0"/>
+                    <GradientStop Color="#FFEBEBEB" Offset="0.5"/>
+                    <GradientStop Color="#FFDDDDDD" Offset="0.5"/>
+                    <GradientStop Color="#FFB1FFC3" Offset="1"/>
+                </LinearGradientBrush>
+            </Button.Background>
+        </Button>
+        <Label x:Name="status" Content="Loading customers..." HorizontalAlignment="Left" Height="56" Margin="21,26,0,0" VerticalAlignment="Top" Width="472" Grid.ColumnSpan="3"/>
+        <Button x:Name="clrBtn" Content="Clear Selection" HorizontalAlignment="Left" Height="25" Margin="4,221,0,0" VerticalAlignment="Top" Width="87" Click="Button_Click" Grid.Column="2" FontSize="10">
+            <Button.Background>
+                <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
+                    <GradientStop Color="#FFF3F3F3" Offset="0"/>
+                    <GradientStop Color="#FFEBEBEB" Offset="0.5"/>
+                    <GradientStop Color="#FFDDDDDD" Offset="0.5"/>
+                    <GradientStop Color="#FFFD9696" Offset="1"/>
+                </LinearGradientBrush>
+            </Button.Background>
+        </Button>
+        <Label Content="select/unselect multiple projects" HorizontalAlignment="Left" Height="27" Margin="21,58,0,0" VerticalAlignment="Top" Width="332" Grid.ColumnSpan="2"/>
+        <ProgressBar x:Name="pBar" HorizontalAlignment="Left" Height="30" Margin="21,52,0,0" VerticalAlignment="Top" Width="522" Foreground="#FF0160D3" Grid.ColumnSpan="3"/>
+        <Label Content="SYE WR Priority Report Tool" HorizontalAlignment="Left" Height="40" VerticalAlignment="Top" Width="281" FontSize="20" FontWeight="Bold"/>
+        <Label Content="5/22/2015" HorizontalAlignment="Left" Height="26" Margin="102,0,-2,1" VerticalAlignment="Bottom" Width="60" FontSize="10" Grid.Column="2"/>
+        <DatePicker x:Name="dtPick" HorizontalAlignment="Left" Height="26" Margin="15,107,0,0" VerticalAlignment="Top" Width="134" Grid.Column="2"/>
+        <Label Content="Open" HorizontalAlignment="Left" Height="26" Margin="17,86,0,0" VerticalAlignment="Top" Width="34" FontSize="10" Grid.Column="2" ToolTip="Anything not &quot;Confim Verified&quot;, &quot;Confirm Duplicate&quot;, or &quot;Confirm Reject&quot;"/>
+        <CheckBox x:Name="doAllcb" Content="" Grid.Column="2" HorizontalAlignment="Left" Height="17" Margin="34,141,0,0" VerticalAlignment="Top" Width="17" FontSize="10" RenderTransformOrigin="0.5,0.5" IsChecked="True" Checked="doAllcb_Checked"/>
+        <Label Content="WRs newer than:" HorizontalAlignment="Left" Height="26" Margin="44,86,0,0" VerticalAlignment="Top" Width="106" FontSize="10" Grid.Column="2"/>
+        <Image Grid.Column="2" HorizontalAlignment="Left" Height="37" Margin="51,2,0,0" VerticalAlignment="Top" Width="106" Source="Resources/DJ.png">
+
+        </Image>
+
+        <Button x:Name="updateBtn" Content="Update" HorizontalAlignment="Left" Height="34" Margin="82,167,0,0" VerticalAlignment="Top" Width="73" Click="updateBtn_Click" FontSize="16" Grid.Column="2" IsDefault="True">
+            <Button.Background>
+                <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
+                    <GradientStop Color="#FFF3F3F3" Offset="0"/>
+                    <GradientStop Color="#FFEBEBEB" Offset="0.5"/>
+                    <GradientStop Color="#FFDDDDDD" Offset="0.5"/>
+                    <GradientStop Color="#FFB1FFC3" Offset="1"/>
+                </LinearGradientBrush>
+            </Button.Background>
+        </Button>
+        <Label Content="OR" Grid.Column="2" HorizontalAlignment="Left" Height="24" Margin="8,134,0,0" VerticalAlignment="Top" Width="27" FontStyle="Italic" FontWeight="Bold"/>
+        <TextBlock Grid.Column="2" HorizontalAlignment="Left" Height="28" Margin="51,134,0,0" TextWrapping="Wrap" Text="Ignore date and find ALL open linked WRs." VerticalAlignment="Top" Width="101" FontSize="10" ToolTip="Anything not &quot;Confim Verified&quot;, &quot;Confirm Duplicate&quot;, or &quot;Confirm Reject&quot;"/>
+        <TabControl Height="247" Margin="16,91,10,0" VerticalAlignment="Top" Grid.ColumnSpan="2">
+            <TabItem Header="DevTrack Listing">
+                <TabItem.Background>
+                    <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
+                        <GradientStop Color="#FFF3F3F3" Offset="0"/>
+                        <GradientStop Color="#FFEBEBEB" Offset="0.5"/>
+                        <GradientStop Color="#FFDDDDDD" Offset="0.5"/>
+                        <GradientStop Color="#FFC3FFAD" Offset="1"/>
+                    </LinearGradientBrush>
+                </TabItem.Background>
+                <Grid>
+                    <Grid.Background>
+                        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                            <GradientStop Color="#FFC3C3C3" Offset="0"/>
+                            <GradientStop Color="#FFE2E2E2" Offset="1"/>
+                        </LinearGradientBrush>
+                    </Grid.Background>
+                    <Label Content="and:" HorizontalAlignment="Left" Height="32" Margin="21,176,0,0" VerticalAlignment="Top" Width="43" FontSize="14" FontWeight="Bold"/>
+                    <TextBox x:Name="ProjectsStr" HorizontalAlignment="Left" Height="25" Margin="64,180,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="267" ToolTip="Case insensitive, comma delimited, wildcard friendly projects query &quot;nve5*,bepc*&quot;">
+                        <TextBox.BorderBrush>
+                            <LinearGradientBrush EndPoint="0,20" MappingMode="Absolute" StartPoint="0,0">
+                                <GradientStop Color="#FF818181" Offset="0.05"/>
+                                <GradientStop Color="#FFE2E3EA" Offset="0.07"/>
+                                <GradientStop Color="#FF5D5D5D" Offset="1"/>
+                            </LinearGradientBrush>
+                        </TextBox.BorderBrush>
+                        <TextBox.Background>
+                            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                <GradientStop Color="#FFF0F0F0" Offset="0"/>
+                                <GradientStop Color="#FFEEFFE3" Offset="1"/>
+                            </LinearGradientBrush>
+                        </TextBox.Background>
+                    </TextBox>
+                    <ListBox x:Name="customers" HorizontalAlignment="Left" Height="161" Margin="10,10,0,0" ScrollViewer.VerticalScrollBarVisibility="Visible" SelectionMode="Extended"  VerticalAlignment="Top" Width="341">
+                        <ListBox.Background>
+                            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                <GradientStop Color="#FFD5F9FF" Offset="0"/>
+                                <GradientStop Color="#FFCAD4C7" Offset="1"/>
+                            </LinearGradientBrush>
+                        </ListBox.Background>
+                    </ListBox>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Exclusion List">
+                <TabItem.Background>
+                    <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
+                        <GradientStop Color="#FFF3F3F3" Offset="0"/>
+                        <GradientStop Color="#FFEBEBEB" Offset="0.5"/>
+                        <GradientStop Color="#FFDDDDDD" Offset="0.5"/>
+                        <GradientStop Color="#FFFFBCBC" Offset="1"/>
+                    </LinearGradientBrush>
+                </TabItem.Background>
+                <Grid>
+                    <Grid.Background>
+                        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                            <GradientStop Color="#FFEEEEEE" Offset="0"/>
+                            <GradientStop Color="#FFB8B8B8" Offset="1"/>
+                        </LinearGradientBrush>
+                    </Grid.Background>
+                    <TextBox x:Name="ignoreBox" HorizontalAlignment="Left" Height="159" Margin="10,46,0,0" TextWrapping="Wrap" Text="Leave blank if all projects, comma delimit keywords" VerticalAlignment="Top" ScrollViewer.VerticalScrollBarVisibility="Visible" Width="339">
+                        <TextBox.Background>
+                            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                <GradientStop Color="#FFFFFCDE" Offset="0"/>
+                                <GradientStop Color="#FFFFDEDE" Offset="1"/>
+                            </LinearGradientBrush>
+                        </TextBox.Background>
+                    </TextBox>
+                    <Label Content="DevTrack.Get will ignore PIDs that contain the following:&#xD;&#xA;(don't use * it is a simple string contains method)" HorizontalAlignment="Left" Height="46" Margin="10,0,0,0" VerticalAlignment="Top" Width="329"/>
+                </Grid>
+            </TabItem>
+        </TabControl>
+
+    </Grid>
+</Window>
